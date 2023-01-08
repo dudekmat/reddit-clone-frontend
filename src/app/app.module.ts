@@ -21,6 +21,7 @@ import { CreatePostComponent } from './post/create-post/create-post.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ListSubredditsComponent } from './subreddit/list-subreddits/list-subreddits.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { ViewPostComponent } from './post/view-post/view-post.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     VoteButtonComponent,
     CreateSubredditComponent,
     CreatePostComponent,
-    ListSubredditsComponent
+    ListSubredditsComponent,
+    ViewPostComponent
   ],
   imports: [
     BrowserModule,
