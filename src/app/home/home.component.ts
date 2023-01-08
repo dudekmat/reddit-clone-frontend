@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { PostModel } from '../shared/post-model';
 import { PostService } from '../shared/post.service';
 
@@ -11,11 +10,6 @@ import { PostService } from '../shared/post.service';
 export class HomeComponent implements OnInit {
 
   posts: Array<PostModel> = [];
-  faComments: IconProp;
-  faArrowUp: IconProp;
-  faArrowDown: IconProp;
-  upvoteColor: string;
-  downvoteColor: string;
 
   constructor(private postService: PostService) { }
 
@@ -25,14 +19,5 @@ export class HomeComponent implements OnInit {
         this.posts = data;
       }
     )
-  }
-
-  goToPost(postId: number) {
-  }
-
-  downvotePost() {
-  }
-
-  upvotePost() {
   }
 }
