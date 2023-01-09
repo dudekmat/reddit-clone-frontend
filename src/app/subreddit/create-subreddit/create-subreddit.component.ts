@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SubredditModel } from '../subreddit-model';
+import { SubredditModel } from '../subreddit.model';
 import { SubredditService } from '../subreddit.service';
 
 @Component({
@@ -40,7 +40,7 @@ export class CreateSubredditComponent implements OnInit {
 
     this.subredditService.createSubreddit(this.subredditModel).subscribe(
       data => {
-        this.router.navigateByUrl('/list-subreddits');
+        this.router.navigateByUrl('/subreddit-list');
       }, error => {
         console.log('Error occured');
       }

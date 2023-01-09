@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
-import { PostModel } from '../post-model';
+import { PostModel } from '../post.model';
 
 @Component({
   selector: 'app-vote-button',
