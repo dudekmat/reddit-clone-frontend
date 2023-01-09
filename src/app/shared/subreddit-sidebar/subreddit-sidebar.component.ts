@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { SubredditModel } from 'src/app/subreddit/subreddit-model';
+import { SubredditModel } from 'src/app/subreddit/subreddit.model';
 import { SubredditService } from 'src/app/subreddit/subreddit.service';
 
 @Component({
-  selector: 'app-subreddit-side-bar',
-  templateUrl: './subreddit-side-bar.component.html',
-  styleUrls: ['./subreddit-side-bar.component.css']
+  selector: 'app-subreddit-sidebar',
+  templateUrl: './subreddit-sidebar.component.html',
+  styleUrls: ['./subreddit-sidebar.component.css']
 })
-export class SubredditSideBarComponent implements OnInit {
+export class SubredditSidebarComponent implements OnInit {
 
   subreddits: Array<SubredditModel> = [];
   displayViewAll: boolean;

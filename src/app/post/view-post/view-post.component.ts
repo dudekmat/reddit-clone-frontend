@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { throwError } from 'rxjs';
-import { PostModel } from 'src/app/shared/post-model';
+import { PostModel } from 'src/app/shared/post.model';
 import { PostService } from 'src/app/shared/post.service';
 
 @Component({

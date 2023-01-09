@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { throwError } from 'rxjs';
 import { PostService } from 'src/app/shared/post.service';
-import { SubredditModel } from 'src/app/subreddit/subreddit-model';
+import { SubredditModel } from 'src/app/subreddit/subreddit.model';
 import { SubredditService } from 'src/app/subreddit/subreddit.service';
 import { CreatePostPayload } from './create-post.payload';
 
