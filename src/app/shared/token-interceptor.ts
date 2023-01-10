@@ -1,4 +1,4 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from "@angular/common/http";
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, catchError, filter, Observable, switchMap, take, throwError } from "rxjs";
 import { LoginResponse } from "../auth/login/login-response.payload";
@@ -15,23 +15,24 @@ export class TokenInterceptor implements HttpInterceptor {
     constructor(private authService: AuthService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const token = this.authService.getJwtToken();
-        if (token) {
-            req = this.addToken(req, token);
-        }
 
-        return next.handle(req).pipe(catchError(
+        if (req.url.indexOf('refresh-token') !== -1 || req.url.indexOf('login') !== -1) {
+            return next.handle(req);
+        }
+        const jwtToken = this.authService.getJwtToken();
+
+        return next.handle(this.addToken(req, jwtToken)).pipe(catchError(
             error => {
-                if (error instanceof HttpResponse && error.status === 403) {
+                if (error instanceof HttpErrorResponse && error.status === 403) {
                     return this.handleAuthErrors(req, next);
                 } else {
                     return throwError(() => error);
                 }
             }
-        ))
+        ));
     }
 
-    private handleAuthErrors(req: HttpRequest<any>, next: HttpHandler) {
+    private handleAuthErrors(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if (!this.isTokenRefreshing) {
             this.isTokenRefreshing = true;
             this.refreshTokenSubject.next(null);
