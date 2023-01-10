@@ -59,4 +59,8 @@ export class AuthService {
   getExpirationTime() {
     return this.localStorage.retrieve('expiresAt');
   }
+
+  isLoggedIn() {
+    return this.getJwtToken() != null;
+  }
 }

@@ -4,8 +4,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
+import { SignupComponent } from './auth/signup/signup.component';
+import { LoginComponent } from './auth/login/login.component';
+import { UserProfileComponent } from './auth/user-profile/user-profile.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthModule } from './auth/auth.module';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
@@ -22,11 +24,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SubredditListComponent } from './subreddit/subreddit-list/subreddit-list.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { ViewPostComponent } from './post/view-post/view-post.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    SignupComponent,
+    LoginComponent,
+    UserProfileComponent,
     HomeComponent,
     PostTileComponent,
     SidebarComponent,
@@ -41,13 +47,13 @@ import { ViewPostComponent } from './post/view-post/view-post.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    AuthModule,
     NgxWebstorageModule.forRoot(),
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     FontAwesomeModule,
     ReactiveFormsModule,
-    EditorModule
+    EditorModule,
+    NgbModule
   ],
   providers: [
     {

@@ -25,4 +25,8 @@ export class PostService {
   getPost(id: number): Observable<PostModel> {
     return this.http.get<PostModel>(`${this.baseUrl}/${id}`);
   }
+
+  getAllPostsByUser(username: string): Observable<Array<PostModel>> {
+    return this.http.get<Array<PostModel>>(`${this.baseUrl}/by-user/${username}`);
+  }
 }

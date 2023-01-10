@@ -1,7 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { PostModel } from '../post.model';
 import { faComments } from '@fortawesome/free-solid-svg-icons';
-import { PostService } from '../post.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,20 +8,12 @@ import { Router } from '@angular/router';
   templateUrl: './post-tile.component.html',
   styleUrls: ['./post-tile.component.css']
 })
-export class PostTileComponent implements OnInit {
+export class PostTileComponent {
 
   @Input() posts: Array<PostModel>;
   faComments = faComments;
 
-  constructor(private postService: PostService, private router: Router) { }
-
-  ngOnInit(): void {
-    this.postService.getAllPosts().subscribe(
-      data => {
-        this.posts = data;
-      }
-    );
-  }
+  constructor(private router: Router) { }
 
   goToPost(id: number) {
     this.router.navigateByUrl(`/view-post/${id}`);
