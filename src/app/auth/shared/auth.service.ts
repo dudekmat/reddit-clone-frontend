@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { SignupRequestPayload } from '../signup/signup-request.payload';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable, tap, throwError } from 'rxjs';
 import { LoginRequestPayload } from '../login/login-request.payload';
 import { LoginResponse } from '../login/login-response.payload';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -13,6 +13,10 @@ import { LocalStorageService } from 'ngx-webstorage';
 export class AuthService {
 
   private baseUrl = `${environment.apiUrl}/auth`;
+  private refreshTokenPayload = {
+    refreshToken: this.getRefreshToken(),
+    username: this.getUsername()
+  };
 
   constructor(private http: HttpClient, private localStorage: LocalStorageService) { }
 
@@ -32,16 +36,27 @@ export class AuthService {
   }
 
   refreshToken() {
-    const refreshTokenPayload = {
-      refreshToken: this.getRefreshToken(),
-      username: this.getUsername()
-    }
-
-    return this.http.post<LoginResponse>(`${this.baseUrl}/refresh-token`, refreshTokenPayload)
+    return this.http.post<LoginResponse>(`${this.baseUrl}/refresh-token`, this.refreshTokenPayload)
       .pipe(tap(response => {
+        this.localStorage.clear('authenticationToken');
+        this.localStorage.clear('expiresAt');
+
         this.localStorage.store('authenticationToken', response.authenticationToken);
         this.localStorage.store('expiresAt', response.expiresAt);
       }))
+  }
+
+  logout() {
+    this.http.post(`${this.baseUrl}/logout`, this.refreshTokenPayload, { responseType: 'text' })
+      .subscribe(data => {
+        console.log(data);
+      }, error => {
+        throwError(error);
+      });
+    this.localStorage.clear('authenticationToken');
+    this.localStorage.clear('username');
+    this.localStorage.clear('refreshToken');
+    this.localStorage.clear('expiresAt');
   }
 
   getJwtToken() {
